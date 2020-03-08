@@ -4,7 +4,10 @@ import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
 
 const App = () => {
   return (
-    <WelcomeScreen />
+    <WelcomeScreen
+      time={7}
+      errorsCount={4}
+    />
   );
 };
 
