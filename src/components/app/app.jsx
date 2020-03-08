@@ -7,6 +7,7 @@ const App = () => {
     <WelcomeScreen
       time={7}
       errorsCount={4}
+      onClick={() => {}}
     />
   );
 };
