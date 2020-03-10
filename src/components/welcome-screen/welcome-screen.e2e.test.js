@@ -10,8 +10,8 @@ it(`Callback function launches after "Start" button is clicked`, () => {
 
   const tree = shallow(<WelcomeScreen
     time={5}
-    errorsCount={3}
-    onClick={clickHandler}
+    errorCount={3}
+    onWelcomeButtonClick={clickHandler}
   />);
 
   const startButton = tree.find(`.welcome__button`);

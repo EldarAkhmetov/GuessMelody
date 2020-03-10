@@ -4,7 +4,11 @@ import App from './app.jsx';
 
 it(`App correctly renders after relaunch`, () => {
   const tree = renderer
-    .create(<App />)
+    .create(<App
+      gameTime={5}
+      errorCount={3}
+      questions={[]}
+    />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

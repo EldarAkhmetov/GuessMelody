@@ -1,15 +1,19 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import WelcomeScreen from './welcome-screen.jsx';
+import GenreQuestionScreen from './genre-question-screen.jsx';
 
 it(`WelcomeScreen correctly renders after relaunch`, () => {
   const tree = renderer
-    .create(<WelcomeScreen
-      time={5}
-      errorCount={3}
-      onWelcomeButtonClick={() => {}}
+    .create(<GenreQuestionScreen
+      question={{
+        type: `genre`,
+        genre: `rock`,
+        answers: []
+      }}
+      onAnswer={() => {}}
     />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
+
