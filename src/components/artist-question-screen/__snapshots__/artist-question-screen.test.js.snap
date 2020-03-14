@@ -32,6 +32,13 @@ exports[`ArtistQuestionScreen correctly renders after relaunch 1`] = `
         cx="390"
         cy="390"
         r="370"
+        style={
+          Object {
+            "filter": "url(#blur)",
+            "transform": "rotate(-90deg) scaleY(-1)",
+            "transformOrigin": "center",
+          }
+        }
       />
     </svg>
     <div
@@ -84,6 +91,8 @@ exports[`ArtistQuestionScreen correctly renders after relaunch 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div

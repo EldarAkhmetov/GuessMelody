@@ -6,15 +6,25 @@ it(`ArtistQuestionScreen correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<ArtistQuestionScreen
       question={{
-        type: `genre`,
+        type: `artist`,
         song: {
-          src: ``,
+          src: `http://dl2.mp3party.net/online/9116246.mp3`,
           artist: `Bob Marley`
         },
         answers: []
       }}
       onAnswer={() => {}}
-    />)
+    />,
+    {
+      createNodeMock: (element) => {
+        if (element.type === `audio`) {
+          return {
+            src: null
+          };
+        }
+        return null;
+      }
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

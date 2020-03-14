@@ -1,63 +1,68 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-const GenreQuestionScreen = (props) => {
-  const {question, onAnswer} = props;
-  const {answers, genre} = question;
+import GameHeader from '../game-header/game-header.jsx';
+import AudioPlayer from '../audio-player/audio-player.jsx';
 
-  const answerSubmitHandler = (evt) => {
+class GenreQuestionScreen extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      audioPlayerID: -1
+    };
+
+  }
+
+  _answerSubmitHandler(evt) {
     evt.preventDefault();
+    const {onAnswer} = this.props;
 
     const answersForm = evt.currentTarget;
     const userAnswers = new FormData(answersForm).getAll(`answer`);
     onAnswer(userAnswers);
-  };
+  }
 
-  return (
-    <section className="game game--genre">
-      <header className="game__header">
-        <a className="game__back" href="#">
-          <span className="visually-hidden">Сыграть ещё раз</span>
-          <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
-        </a>
+  _playButtonClickHandler(audioPlayerID) {
+    this.setState((prevState) => ({
+      audioPlayerID: prevState.audioPlayerID === audioPlayerID ? -1 : audioPlayerID
+    }));
+  }
 
-        <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-          <span className="timer__mins">05</span>
-          <span className="timer__dots">:</span>
-          <span className="timer__secs">00</span>
-        </div>
+  render() {
+    const {audioPlayerID} = this.state;
+    const {question} = this.props;
+    const {answers, genre} = question;
+    return (
+      <section className="game game--genre">
+        <GameHeader />
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
-      </header>
-
-      <section className="game__screen">
-        <h2 className="game__title">Выберите {genre} треки</h2>
-        <form className="game__tracks" onSubmit={answerSubmitHandler}>
-          {answers.map((it, ind) => {
-            return (
-              <div key={`track-${ind}`} className="track">
-                <button className="track__button track__button--play" type="button"></button>
-                <div className="track__status">
-                  <audio src={it.src}></audio>
+        <section className="game__screen">
+          <h2 className="game__title">Выберите {genre} треки</h2>
+          <form className="game__tracks" onSubmit={(evt) => this._answerSubmitHandler(evt)}>
+            {answers.map((it, ind) => {
+              return (
+                <div key={`track-${ind}-${it.id}`} className="track">
+                  <AudioPlayer
+                    src={it.src}
+                    isPlaying={ind === audioPlayerID}
+                    onPlayButtonClick={() => this._playButtonClickHandler(ind)}
+                  />
+                  <div className="game__answer">
+                    <input className="game__input visually-hidden" type="checkbox" name="answer" value={it.genre} id={`answer-${ind}`} />
+                    <label className="game__check" htmlFor={`answer-${ind}`}>Отметить</label>
+                  </div>
                 </div>
-                <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={it.genre} id={`answer-${ind}`} />
-                  <label className="game__check" htmlFor={`answer-${ind}`}>Отметить</label>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
 
-          <button className="game__submit button" type="submit">Ответить</button>
-        </form>
+            <button className="game__submit button" type="submit">Ответить</button>
+          </form>
+        </section>
       </section>
-    </section>
-  );
-};
+    );
+  }
+}
 
 GenreQuestionScreen.propTypes = {
   question: PropTypes.shape({

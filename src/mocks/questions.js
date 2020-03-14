@@ -4,19 +4,19 @@ const questions = [
     genre: `rock`,
     answers: [
       {
-        src: `https://www.freemusicarchive.org/music/Ayla_Nereo/By_the_Light_of_the_Dark_Moon/Ayla_Nereo_-_By_the_Light_of_the_D_3`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
         genre: `rock`
       },
       {
-        src: `https://www.freemusicarchive.org/music/Ayla_Nereo/By_the_Light_of_the_Dark_Moon/Ayla_Nereo_-_By_the_Light_of_the_D_3`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
         genre: `pop`
       },
       {
-        src: `https://www.freemusicarchive.org/music/Ayla_Nereo/By_the_Light_of_the_Dark_Moon/Ayla_Nereo_-_By_the_Light_of_the_D_3`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
         genre: `jazz`
       },
       {
-        src: `https://www.freemusicarchive.org/music/Ayla_Nereo/By_the_Light_of_the_Dark_Moon/Ayla_Nereo_-_By_the_Light_of_the_D_3`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
         genre: `rock`
       },
     ]
@@ -25,7 +25,7 @@ const questions = [
     type: `artist`,
     song: {
       artist: `Jim Beam`,
-      src: `https://www.freemusicarchive.org/music/Ayla_Nereo/By_the_Light_of_the_Dark_Moon/Ayla_Nereo_-_By_the_Light_of_the_D_3`,
+      src: `http://dl2.mp3party.net/online/9116246.mp3`,
     },
     answers: [
       {

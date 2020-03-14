@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import GenreQuestionScreen from './genre-question-screen.jsx';
 
-it(`WelcomeScreen correctly renders after relaunch`, () => {
+it(`GenreQuestionScreen correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<GenreQuestionScreen
       question={{
