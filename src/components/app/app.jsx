@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
+import WinScreen from '../win-screen/win-screen.jsx';
 import GenreQuestionScreen from '../genre-question-screen/genre-question-screen.jsx';
 import ArtistQuestionScreen from '../artist-question-screen/artist-question-screen.jsx';
 
@@ -21,6 +22,12 @@ class App extends PureComponent {
         questions={questions}
         onWelcomeButtonClick={() => onWelcomeScreenClick()}
       />;
+    }
+
+    if (question >= maxQuestions) {
+      return (
+        <WinScreen />
+      );
     }
 
     const currentQuestion = questions[question];
