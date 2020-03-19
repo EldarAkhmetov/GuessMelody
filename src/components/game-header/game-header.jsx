@@ -1,15 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-const GameHeader = () => {
+import {ActionCreator} from '../../reducer/reducer.js';
+
+const GameHeader = (props) => {
   const gameHeaderStyle = {
     filter: `url(#blur)`,
     transform: `rotate(-90deg) scaleY(-1)`,
     transformOrigin: `center`
   };
 
+  const {gameResetHandler} = props;
+
   return (
     <header className="game__header">
-      <a className="game__back" href="#">
+      <a className="game__back" href="#" onClick={(evt) => {
+        evt.preventDefault();
+        gameResetHandler();
+      }}>
         <span className="visually-hidden">Сыграть ещё раз</span>
         <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
       </a>
@@ -33,4 +42,14 @@ const GameHeader = () => {
   );
 };
 
-export default GameHeader;
+GameHeader.propTypes = {
+  gameResetHandler: PropTypes.func
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  gameResetHandler: () => dispatch(ActionCreator.resetGame())
+});
+
+export {GameHeader};
+
+export default connect(null, mapDispatchToProps)(GameHeader);
