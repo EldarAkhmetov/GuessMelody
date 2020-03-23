@@ -6,6 +6,7 @@ import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
 import WinScreen from '../win-screen/win-screen.jsx';
 import GenreQuestionScreen from '../genre-question-screen/genre-question-screen.jsx';
 import ArtistQuestionScreen from '../artist-question-screen/artist-question-screen.jsx';
+import Timer from '../../utils/timer/timer.js';
 
 import {ActionCreator} from '../../reducer/reducer.js';
 
@@ -14,6 +15,14 @@ class App extends PureComponent {
   _getScreen() {
     const {gameTime, errorCount, questions, onWelcomeScreenClick, onUserAnswer, step: question} = this.props;
     const maxQuestions = questions.length;
+
+    const onTick = () => {
+      console.log(timer._timeRemaining);
+    };
+
+    const timer = new Timer(10000, 1000, onTick);
+    timer.start();
+    console.log(`timer`);
 
     if (question === -1) {
       return <WelcomeScreen
@@ -35,12 +44,12 @@ class App extends PureComponent {
     switch (currentQuestion.type) {
       case `genre`: return <GenreQuestionScreen
         question={currentQuestion}
-        onAnswer={() => onUserAnswer()}
+        onAnswer={(answer) => onUserAnswer(answer, currentQuestion)}
       />;
 
       case `artist`: return <ArtistQuestionScreen
         question={currentQuestion}
-        onAnswer={() => onUserAnswer()}
+        onAnswer={(answer) => onUserAnswer(answer, currentQuestion)}
       />;
 
     }
@@ -48,7 +57,6 @@ class App extends PureComponent {
     return null;
 
   }
-
 
   render() {
     return this._getScreen();
@@ -74,8 +82,9 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onWelcomeScreenClick: () => dispatch(ActionCreator.incrementStep()),
-  onUserAnswer: () => {
+  onUserAnswer: (answer, currentQuestion) => {
     dispatch(ActionCreator.incrementStep());
+    dispatch(ActionCreator.incrementMistakes(answer, currentQuestion));
   },
   onGameReset: () => dispatch(ActionCreator.resetGame())
 });

@@ -52,7 +52,7 @@ class ArtistQuestionScreen extends PureComponent {
           <form className="game__artist" onChange={(evt) => this._answerChangeHandler(evt)}>
             {answers.map((it, ind) => {
               return (
-                <div key={`artist-${ind}`} className="artist">
+                <div key={`${it.artist}-${ind}`} className="artist">
                   <input className="artist__input visually-hidden" type="radio" name="answer" value={`${it.artist}`} id={`answer-${ind}`} />
                   <label className="artist__name" htmlFor={`answer-${ind}`}>
                     <img className="artist__picture" src={it.src} alt={it.artist} />

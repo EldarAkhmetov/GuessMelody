@@ -41,6 +41,27 @@ const questions = [
         artist: `Johnny Cash`
       },
     ]
+  },
+  {
+    type: `artist`,
+    song: {
+      artist: `Johnny Cash`,
+      src: `http://dl2.mp3party.net/online/9116246.mp3`,
+    },
+    answers: [
+      {
+        src: `https://placehold.it/134x134`,
+        artist: `Johnny Cash`
+      },
+      {
+        src: `https://placehold.it/134x134`,
+        artist: `Bob Marley`
+      },
+      {
+        src: `https://placehold.it/134x134`,
+        artist: `Jim Beam`
+      },
+    ]
   }
 ];
 
