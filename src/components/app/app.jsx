@@ -10,26 +10,23 @@ import Timer from '../../utils/timer/timer.js';
 
 import {ActionCreator} from '../../reducer/reducer.js';
 
+const MILLISECONDS_IN_MINUTE = 60 * 1000;
+const MILLISECONDS_IN_SECOND = 1000;
+
 class App extends PureComponent {
 
   _getScreen() {
     const {gameTime, errorCount, questions, onWelcomeScreenClick, onUserAnswer, step: question} = this.props;
     const maxQuestions = questions.length;
 
-    const onTick = () => {
-      console.log(timer._timeRemaining);
-    };
-
-    const timer = new Timer(10000, 1000, onTick);
-    timer.start();
-    console.log(`timer`);
+    const gameTimeframe = gameTime * MILLISECONDS_IN_MINUTE;
 
     if (question === -1) {
       return <WelcomeScreen
         time={gameTime}
         errorCount={errorCount}
         questions={questions}
-        onWelcomeButtonClick={() => onWelcomeScreenClick()}
+        onWelcomeButtonClick={() => onWelcomeScreenClick(gameTimeframe)}
       />;
     }
 
@@ -71,23 +68,35 @@ App.propTypes = {
   step: PropTypes.number,
   onUserAnswer: PropTypes.func,
   onWelcomeScreenClick: PropTypes.func,
-  onGameReset: PropTypes.func
+  onGameReset: PropTypes.func,
+  gameTimeRemaining: PropTypes.number
 };
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
   step: state.step,
-  mistakes: state.mistakes
+  mistakes: state.mistakes,
+  gameTimeRemaining: state.gameTimeRemaining
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onWelcomeScreenClick: () => dispatch(ActionCreator.incrementStep()),
-  onUserAnswer: (answer, currentQuestion) => {
-    dispatch(ActionCreator.incrementStep());
-    dispatch(ActionCreator.incrementMistakes(answer, currentQuestion));
-  },
-  onGameReset: () => dispatch(ActionCreator.resetGame())
-});
+const mapDispatchToProps = (dispatch) => {
+  const onTick = (timeRemaining, timeTick) => {
+    dispatch(ActionCreator.decreaseGameTime(timeTick, timeRemaining));
+  };
+  const timer = new Timer(0, MILLISECONDS_IN_SECOND, onTick);
+
+  return {
+    onWelcomeScreenClick: (gameTimeframe) => {
+      dispatch(ActionCreator.incrementStep());
+      dispatch(ActionCreator.setGameTime(gameTimeframe, timer));
+    },
+    onUserAnswer: (answer, currentQuestion) => {
+      dispatch(ActionCreator.incrementStep());
+      dispatch(ActionCreator.incrementMistakes(answer, currentQuestion));
+    },
+    onGameReset: () => dispatch(ActionCreator.resetGame())
+  };
+};
 
 export {App};
 

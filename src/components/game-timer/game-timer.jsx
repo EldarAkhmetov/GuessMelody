@@ -1,11 +1,28 @@
 import React, {Fragment} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-const GameTimer = () => {
+const formatTime = (milliseconds) => {
+  const minutes = Math.floor(milliseconds / 1000 / 60);
+  const seconds = milliseconds / 1000 % 60;
+
+  return {
+    minutes: minutes < 10 ? `0${minutes}` : minutes,
+    seconds: seconds < 10 ? `0${seconds}` : seconds
+  };
+};
+
+const GameTimer = (props) => {
   const gameHeaderStyle = {
     filter: `url(#blur)`,
     transform: `rotate(-90deg) scaleY(-1)`,
     transformOrigin: `center`
   };
+
+  const {gameTimeRemaining} = props;
+
+  const formatedTime = formatTime(gameTimeRemaining);
+  console.log(gameTimeRemaining);
 
   return (
     <Fragment>
@@ -14,12 +31,22 @@ const GameTimer = () => {
       </svg>
 
       <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-        <span className="timer__mins">05</span>
+        <span className="timer__mins">{formatedTime.minutes}</span>
         <span className="timer__dots">:</span>
-        <span className="timer__secs">00</span>
+        <span className="timer__secs">{formatedTime.seconds}</span>
       </div>
     </Fragment>
   );
 };
 
-export default GameTimer;
+GameTimer.propTypes = {
+  gameTimeRemaining: PropTypes.number
+};
+
+const mapStateToProps = (state) => ({
+  gameTimeRemaining: state.gameTimeRemaining
+});
+
+export {GameTimer};
+
+export default connect(mapStateToProps)(GameTimer);

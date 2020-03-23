@@ -35,9 +35,19 @@ const ActionCreator = {
   },
 
   setGameTime: (time, timer) => {
+    timer.setTimer(time);
+    timer.start();
+
     return {
       type: `SET_GAME_TIME`,
-      payload: timer.setTimer(time)
+      payload: time
+    };
+  },
+
+  decreaseGameTime: (timeTick, timeRemaining) => {
+    return {
+      type: `DECREASE_GAME_TIME`,
+      payload: timeRemaining > 0 ? timeTick : 0
     };
   },
 
