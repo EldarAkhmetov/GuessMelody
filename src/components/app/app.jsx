@@ -68,7 +68,6 @@ App.propTypes = {
   step: PropTypes.number,
   onUserAnswer: PropTypes.func,
   onWelcomeScreenClick: PropTypes.func,
-  onGameReset: PropTypes.func,
   gameTimeRemaining: PropTypes.number
 };
 
@@ -93,8 +92,7 @@ const mapDispatchToProps = (dispatch) => {
     onUserAnswer: (answer, currentQuestion) => {
       dispatch(ActionCreator.incrementStep());
       dispatch(ActionCreator.incrementMistakes(answer, currentQuestion));
-    },
-    onGameReset: () => dispatch(ActionCreator.resetGame())
+    }
   };
 };
 

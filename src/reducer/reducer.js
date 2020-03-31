@@ -36,6 +36,7 @@ const ActionCreator = {
 
   setGameTime: (time, timer) => {
     timer.setTimer(time);
+    timer.stop();
     timer.start();
 
     return {
@@ -51,9 +52,11 @@ const ActionCreator = {
     };
   },
 
-  resetGame: () => ({
-    type: `RESET`
-  }),
+  resetGame: () => {
+    return {
+      type: `RESET`
+    };
+  },
 
 };
 
