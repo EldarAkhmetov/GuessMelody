@@ -2,15 +2,10 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import GameHeader from '../game-header/game-header.jsx';
-import AudioPlayer from '../audio-player/audio-player.jsx';
 
 class ArtistQuestionScreen extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      audioPlayerID: -1
-    };
   }
 
   _answerChangeHandler(evt) {
@@ -19,19 +14,9 @@ class ArtistQuestionScreen extends PureComponent {
     this.props.onAnswer(userAnswers);
   }
 
-  _playButtonClickHandler(audioPlayerID) {
-    this.setState((prevState) => {
-      return {
-        audioPlayerID: prevState.audioPlayerID === audioPlayerID ? -1 : audioPlayerID
-      };
-    });
-  }
-
   render() {
-    const {audioPlayerID} = this.state;
-    const {question} = this.props;
+    const {question, renderPlayer} = this.props;
     const {song, answers} = question;
-    const titleAudioPlayer = 0;
 
     return (
       <section className="game game--artist">
@@ -41,11 +26,7 @@ class ArtistQuestionScreen extends PureComponent {
           <h2 className="game__title">Кто исполняет эту песню?</h2>
           <div className="game__track">
             <div className="track">
-              <AudioPlayer
-                isPlaying={titleAudioPlayer === audioPlayerID}
-                src={song.src}
-                onPlayButtonClick={() => this._playButtonClickHandler(titleAudioPlayer)}
-              />
+              {renderPlayer(song, 0)}
             </div>
           </div>
 
@@ -75,6 +56,7 @@ ArtistQuestionScreen.propTypes = {
     answers: PropTypes.array,
   }),
   onAnswer: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func
 };
 
 export default ArtistQuestionScreen;

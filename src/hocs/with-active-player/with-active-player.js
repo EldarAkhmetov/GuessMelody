@@ -17,6 +17,7 @@ const withActivePlayer = (Component) => {
         {...this.props}
         renderPlayer={(it, i) => {
           return <AudioPlayer
+            key={`track-${i}-${it.src}-${it.artist}`}
             src={it.src}
             isPlaying={i === activePlayer}
             onPlayButtonClick={() => {

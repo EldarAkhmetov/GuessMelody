@@ -2,7 +2,6 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import GameHeader from '../game-header/game-header.jsx';
-import AudioPlayer from '../audio-player/audio-player.jsx';
 
 class GenreQuestionScreen extends PureComponent {
   constructor(props) {
@@ -12,7 +11,6 @@ class GenreQuestionScreen extends PureComponent {
     const {answers} = question;
 
     this.state = {
-      audioPlayerID: -1,
       userAnswer: new Array(answers.length).fill(false)
     };
 
@@ -26,15 +24,8 @@ class GenreQuestionScreen extends PureComponent {
     onAnswer(userAnswer);
   }
 
-  _playButtonClickHandler(audioPlayerID) {
-    this.setState((prevState) => ({
-      audioPlayerID: prevState.audioPlayerID === audioPlayerID ? -1 : audioPlayerID
-    }));
-  }
-
   render() {
-    const {audioPlayerID} = this.state;
-    const {question} = this.props;
+    const {question, renderPlayer} = this.props;
     const {answers, genre} = question;
     return (
       <section className="game game--genre">
@@ -45,12 +36,8 @@ class GenreQuestionScreen extends PureComponent {
           <form className="game__tracks" onSubmit={(evt) => this._answerSubmitHandler(evt)}>
             {answers.map((it, ind) => {
               return (
-                <div key={`track-${ind}-${it.id}`} className="track">
-                  <AudioPlayer
-                    src={it.src}
-                    isPlaying={ind === audioPlayerID}
-                    onPlayButtonClick={() => this._playButtonClickHandler(ind)}
-                  />
+                <div key={`track-${ind}-${it.genre}`} className="track">
+                  {renderPlayer(it, ind)}
                   <div className="game__answer">
                     <input
                       className="game__input visually-hidden"
@@ -84,6 +71,7 @@ GenreQuestionScreen.propTypes = {
     answers: PropTypes.array,
   }),
   onAnswer: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func
 };
 
 export default GenreQuestionScreen;

@@ -10,6 +10,11 @@ import Timer from '../../utils/timer/timer.js';
 
 import {ActionCreator} from '../../reducer/reducer.js';
 
+import withActivePlayer from '../../hocs/with-active-player/with-active-player.js';
+
+const GenreQuestionScreenWrapped = withActivePlayer(GenreQuestionScreen);
+const ArtistQuestionScreenWrapped = withActivePlayer(ArtistQuestionScreen);
+
 const MILLISECONDS_IN_MINUTE = 60 * 1000;
 const MILLISECONDS_IN_SECOND = 1000;
 
@@ -39,12 +44,12 @@ class App extends PureComponent {
     const currentQuestion = questions[question];
 
     switch (currentQuestion.type) {
-      case `genre`: return <GenreQuestionScreen
+      case `genre`: return <GenreQuestionScreenWrapped
         question={currentQuestion}
         onAnswer={(answer) => onUserAnswer(answer, currentQuestion)}
       />;
 
-      case `artist`: return <ArtistQuestionScreen
+      case `artist`: return <ArtistQuestionScreenWrapped
         question={currentQuestion}
         onAnswer={(answer) => onUserAnswer(answer, currentQuestion)}
       />;
