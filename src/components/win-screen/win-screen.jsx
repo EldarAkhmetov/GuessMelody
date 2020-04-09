@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../reducer/reducer.js';
+import {ActionCreator} from '../../reducer/game/reducer.js';
 
 
 const WinScreen = (props) => {

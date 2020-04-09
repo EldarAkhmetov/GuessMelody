@@ -8,7 +8,8 @@ import GenreQuestionScreen from '../genre-question-screen/genre-question-screen.
 import ArtistQuestionScreen from '../artist-question-screen/artist-question-screen.jsx';
 import Timer from '../../utils/timer/timer.js';
 
-import {ActionCreator} from '../../reducer/reducer.js';
+import {ActionCreator} from '../../reducer/game/reducer.js';
+import {questionsSelectors} from '../../reducer/questions/index.js';
 
 import withActivePlayer from '../../hocs/with-active-player/with-active-player.js';
 
@@ -78,9 +79,10 @@ App.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  step: state.step,
-  mistakes: state.mistakes,
-  gameTimeRemaining: state.gameTimeRemaining
+  step: state.game.step,
+  mistakes: state.game.mistakes,
+  gameTimeRemaining: state.game.gameTimeRemaining,
+  questions: questionsSelectors.getQuestions(state)
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../reducer/reducer.js';
+import {ActionCreator} from '../../reducer/game/reducer.js';
 
 import GameTimer from '../game-timer/game-timer.jsx';
 
@@ -38,7 +38,7 @@ GameHeader.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  mistakes: state.mistakes
+  mistakes: state.game.mistakes
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -44,7 +44,7 @@ GameTimer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  gameTimeRemaining: state.gameTimeRemaining
+  gameTimeRemaining: state.game.gameTimeRemaining
 });
 
 export {GameTimer};
